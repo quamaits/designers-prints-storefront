@@ -1,7 +1,48 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Play } from "lucide-react";
+function Card({ children, className }) {
+  return (
+    <div className={`rounded-2xl p-5 shadow-lg bg-white/10 backdrop-blur ${className || ""}`}>
+      {children}
+    </div>
+  );
+}
 
+export function InfogramAssemble() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end center"] });
+
+  const leftX = useTransform(scrollYProgress, [0, 1], ["-40%", "0%"]);
+  const rightX = useTransform(scrollYProgress, [0, 1], ["40%", "0%"]);
+  const topY = useTransform(scrollYProgress, [0, 1], ["-40%", "0%"]);
+  const bottomY = useTransform(scrollYProgress, [0, 1], ["40%", "0%"]);
+  const fade = useTransform(scrollYProgress, [0, 0.2, 1], [0, 0.3, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
+
+  return (
+    <section ref={ref} className="container mx-auto px-4 py-24">
+      <h3 className="text-3xl font-bold text-center mb-10">Was ich anbiete</h3>
+      <motion.div
+        style={{ opacity: fade, scale }}
+        className="relative grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[420px]"
+      >
+        <motion.div style={{ x: leftX }}>
+          <Card><h4>Beratung</h4><p>Kurztext…</p></Card>
+        </motion.div>
+        <motion.div style={{ x: rightX }}>
+          <Card><h4>Coaching</h4><p>Kurztext…</p></Card>
+        </motion.div>
+        <motion.div style={{ y: topY }}>
+          <Card><h4>Workshops</h4><p>Kurztext…</p></Card>
+        </motion.div>
+        <motion.div style={{ y: bottomY }}>
+          <Card><h4>Begleitung</h4><p>Kurztext…</p></Card>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
 
 export default function App() {
   return (
