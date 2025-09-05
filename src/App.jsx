@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef } from "react";
 
 export default function App() {
   return (
