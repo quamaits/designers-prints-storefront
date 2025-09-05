@@ -1,11 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App'
 
-body {
-  @apply bg-gradient-to-br from-orange-500 to-yellow-400 text-white;
-  font-family: Inter, sans-serif;
-}
-h1, h2, h3, h4, h5 {
-  font-family: Poppins, sans-serif;
-}
+createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
